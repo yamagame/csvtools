@@ -28,13 +28,41 @@ $ make
 
 ## functions
 
-### csvtools.Read(reader io.Reader) ([][]string, error)
-### csvtools.Dump(records [][]string)
-### csvtools.MaxCol(records [][]string)
-### csvtools.MaxRow(records [][]string)
-### csvtools.Transpose(records [][]string) [][]string
-### csvtools.RowHash(records [][]string, key int, value int) map[string]string
-### csvtools.ColHash(records [][]string, key int, value int) map[string]string
-### csvtools.Json(data interface{}) string
-### Trim(records [][]string, col int, row int, colsize int, rowsize int) [][]string
+### Reaad
+csvtools.Read(reader io.Reader) ([][]string, error)
 
+CSVファイルの読み込み
+### Dump
+csvtools.Dump(records [][]string)
+
+CSVを出力
+### MaxCol
+csvtools.MaxCol(records [][]string)
+
+列数の最大を返す
+### MaxRow
+csvtools.MaxRow(records [][]string)
+
+行数の最大を返す
+### Transpose
+csvtools.Transpose(records [][]string) [][]string
+
+行と列を入れ替える
+### ColHash
+csvtools.ColHash(records [][]string, key int, value int) map[string]string
+
+列毎に連想配列化する
+
+### RowHash
+csvtools.RowHash(records [][]string, key int, value int) map[string]string
+
+行毎に連想配列化する
+### Json
+csvtools.Json(data interface{}) string
+
+JSON文字列に変換する
+
+### Trim
+Trim(records [][]string, col int, row int, colsize int, rowsize int) [][]string
+
+CSVの一部を切り出す
