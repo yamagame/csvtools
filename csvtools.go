@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"io"
 	"os"
+	"sort"
 )
 
 func Read(reader io.Reader) ([][]string, error) {
@@ -115,6 +116,26 @@ func Trim(records [][]string, col int, row int, colsize int, rowsize int) [][]st
 				retval[r][c] = ""
 			}
 		}
+	}
+	return retval
+}
+
+func Sort(records [][]string, key int) [][]string {
+	maxrow := MaxRow(records)
+	type Record struct {
+		key    string
+		record []string
+	}
+	// keyで並べ替え
+	result := make([]Record, maxrow)
+	for i, record := range records {
+		result[i] = Record{key: record[key], record: record}
+	}
+	sort.SliceStable(result, func(i, j int) bool { return result[i].key < result[j].key })
+	// 並べ替えたレコードを２次元配列に戻す
+	retval := make([][]string, maxrow)
+	for i, record := range result {
+		retval[i] = record.record
 	}
 	return retval
 }

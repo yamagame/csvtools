@@ -16,6 +16,10 @@ csvファイルを読み込んで列と行を入れ替えて出力する。
 
 csvファイルの一部を切り出す。
 
+### sortcsv
+
+csvファイルをソートする。
+
 ### dumpcsv
 
 csvファイルを読み込んで出力する。特に変換はしない。
@@ -66,3 +70,8 @@ JSON文字列に変換する
 Trim(records [][]string, col int, row int, colsize int, rowsize int) [][]string
 
 CSVの一部を切り出す
+
+### Sort
+Sort(records [][]string, key int) [][]string
+
+CSVをソートする
