@@ -20,6 +20,10 @@ csvファイルの一部を切り出す。
 
 csvファイルをソートする。
 
+### joincsv
+
+2つのcsvファイルを連結する。
+
 ### dumpcsv
 
 csvファイルを読み込んで出力する。特に変換はしない。
@@ -75,3 +79,8 @@ CSVの一部を切り出す
 Sort(records [][]string, key int) [][]string
 
 CSVをソートする
+
+### Join
+Join(left [][]string, right [][]string) [][]string
+
+CSVファイルを連結する

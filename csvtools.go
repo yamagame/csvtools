@@ -6,6 +6,7 @@ import (
 	"io"
 	"os"
 	"sort"
+	"strconv"
 )
 
 func Read(reader io.Reader) ([][]string, error) {
@@ -120,7 +121,14 @@ func Trim(records [][]string, col int, row int, colsize int, rowsize int) [][]st
 	return retval
 }
 
-func Sort(records [][]string, key int) [][]string {
+func Sort(records [][]string, key int, numflag bool) [][]string {
+	atoi := func(s string) int {
+		a, err := strconv.Atoi(s)
+		if err != nil {
+			return 0
+		}
+		return a
+	}
 	maxrow := MaxRow(records)
 	type Record struct {
 		key    string
@@ -131,11 +139,50 @@ func Sort(records [][]string, key int) [][]string {
 	for i, record := range records {
 		result[i] = Record{key: record[key], record: record}
 	}
-	sort.SliceStable(result, func(i, j int) bool { return result[i].key < result[j].key })
+	sort.SliceStable(result, func(i, j int) bool {
+		if numflag {
+			return atoi(result[i].key) < atoi(result[j].key)
+		}
+		return result[i].key < result[j].key
+	})
 	// 並べ替えたレコードを２次元配列に戻す
 	retval := make([][]string, maxrow)
 	for i, record := range result {
 		retval[i] = record.record
+	}
+	return retval
+}
+
+func Join(left [][]string, right [][]string) [][]string {
+	max := func(a int, b int) int {
+		if a > b {
+			return a
+		}
+		return b
+	}
+	maxrowl := MaxRow(left)
+	maxrowr := MaxRow(right)
+	maxrow := max(maxrowl, maxrowr)
+	maxcoll := MaxCol(left)
+	maxcolr := MaxCol(right)
+	retval := make([][]string, maxrow)
+	for y := 0; y < maxrow; y++ {
+		record := make([]string, maxcoll+maxcolr)
+		for x := 0; x < maxcoll; x++ {
+			if maxrowl > y {
+				record[x] = left[y][x]
+			} else {
+				record[x] = ""
+			}
+		}
+		for x := 0; x < maxcolr; x++ {
+			if maxrowr > y {
+				record[x+maxcoll] = right[y][x]
+			} else {
+				record[x+maxcoll] = ""
+			}
+		}
+		retval[y] = record
 	}
 	return retval
 }

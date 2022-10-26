@@ -3,7 +3,8 @@ all: \
 	dumpcsv \
 	transcsv \
 	trimcsv \
-	sortcsv
+	sortcsv \
+	joincsv
 
 csv2json: cmd/csv2json/main.go
 	go build -o bin/csv2json cmd/csv2json/main.go
@@ -18,4 +19,7 @@ trimcsv: cmd/trimcsv/main.go
 	go build -o bin/trimcsv cmd/trimcsv/main.go
 
 sortcsv: cmd/sortcsv/main.go
-	go build -o bin/trimcsv cmd/sortcsv/main.go
+	go build -o bin/sortcsv cmd/sortcsv/main.go
+
+joincsv: cmd/sortcsv/main.go
+	go build -o bin/joincsv cmd/joincsv/main.go
