@@ -24,7 +24,7 @@ var versionCmd = &cobra.Command{
 
 var rootCmd = &cobra.Command{
 	Use:   "csv2json",
-	Short: "convert csv to hash",
+	Short: "convert csv to json",
 	Args:  cobra.MaximumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		var inputReader io.Reader = cmd.InOrStdin()

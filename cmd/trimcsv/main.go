@@ -16,15 +16,15 @@ var rowsize int
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
-	Short: "Print the version number of transcsv",
+	Short: "Print the version number of trimcsv",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("version 0.1")
 	},
 }
 
 var rootCmd = &cobra.Command{
-	Use:   "transcsv",
-	Short: "transpose csv",
+	Use:   "trimcsv",
+	Short: "trim csv",
 	Args:  cobra.MaximumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		var inputReader io.Reader = cmd.InOrStdin()

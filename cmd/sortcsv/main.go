@@ -11,6 +11,7 @@ import (
 
 var keypos int
 var skipline int
+var numflag *bool
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
@@ -22,7 +23,7 @@ var versionCmd = &cobra.Command{
 
 var rootCmd = &cobra.Command{
 	Use:   "sortcsv",
-	Short: "transpose csv",
+	Short: "sort csv",
 	Args:  cobra.MaximumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		var inputReader io.Reader = cmd.InOrStdin()
@@ -40,16 +41,17 @@ var rootCmd = &cobra.Command{
 		if skipline > 0 {
 			header := csv[:skipline]
 			targetrecords := csv[skipline:]
-			sortedrecords := csvtools.Sort(targetrecords, keypos)
+			sortedrecords := csvtools.Sort(targetrecords, keypos, *numflag)
 			result := append(header, sortedrecords...)
 			csvtools.Dump(result)
 		} else {
-			csvtools.Dump(csvtools.Sort(csv, keypos))
+			csvtools.Dump(csvtools.Sort(csv, keypos, *numflag))
 		}
 	},
 }
 
 func init() {
+	numflag = rootCmd.Flags().BoolP("num", "n", false, "sort as number")
 	rootCmd.Flags().IntVarP(&keypos, "key", "k", 0, "sort key position")
 	rootCmd.Flags().IntVarP(&skipline, "skip", "s", 0, "skip line count")
 	rootCmd.AddCommand(versionCmd)
