@@ -4,7 +4,8 @@ all: \
 	transcsv \
 	trimcsv \
 	sortcsv \
-	joincsv
+	joincsv \
+	gencode
 
 csv2json: cmd/csv2json/main.go
 	go build -o bin/csv2json cmd/csv2json/main.go
@@ -23,3 +24,6 @@ sortcsv: cmd/sortcsv/main.go
 
 joincsv: cmd/sortcsv/main.go
 	go build -o bin/joincsv cmd/joincsv/main.go
+
+gencode: cmd/gencode/main.go
+	go build -o bin/gencode cmd/gencode/main.go
