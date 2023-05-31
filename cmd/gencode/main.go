@@ -21,10 +21,10 @@ var versionCmd = &cobra.Command{
 
 var rootCmd = &cobra.Command{
 	Use:   "gencode",
-	Short: "generate code",
+	Short: "replace Target with Source string",
 	Args:  cobra.MaximumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		className, err := cmd.PersistentFlags().GetString("class")
+		className, err := cmd.PersistentFlags().GetString("source")
 		if err != nil {
 			return err
 		}
@@ -57,8 +57,8 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringP("class", "c", "Class", "Generate with class name")
-	rootCmd.PersistentFlags().StringP("target", "t", "", "Replaced class name")
+	rootCmd.PersistentFlags().StringP("source", "s", "", "replace source stirng")
+	rootCmd.PersistentFlags().StringP("target", "t", "", "replace target string")
 	rootCmd.AddCommand(versionCmd)
 }
 
